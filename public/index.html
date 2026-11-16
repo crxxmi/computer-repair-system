@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Repair System</title>
+  <style>
+
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #070b14;
+  --panel: #101a2b;
+  --panel2: #14243a;
+  --blue: #1685ff;
+  --cyan: #25c8e8;
+  --text: #edf5ff;
+  --muted: #91a7c2;
+  --border: rgba(120, 165, 220, .16);
+  --radius: 16px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at 80% 0%, #12345b 0%, transparent 35%),
+    var(--bg);
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 245px;
+  padding: 30px 18px;
+  background: linear-gradient(180deg, #102744, #091426 90%);
+  border-right: 1px solid var(--border);
+  z-index: 5;
+}
+
+.brand {
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: #fff;
+  margin: 4px 10px 8px;
+  letter-spacing: .5px;
+}
+
+.brand span {
+  display: block;
+  color: #55baff;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 5px;
+}
+
+.nav-label {
+  color: #6688af;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+  margin: 42px 12px 14px;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #b9cce2;
+  text-decoration: none;
+  padding: 13px 14px;
+  margin: 7px 0;
+  border-radius: 11px;
+  font-size: 13px;
+  transition: .2s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  color: #fff;
+  background: linear-gradient(100deg, #1268bd, #12447b);
+  box-shadow: 0 8px 24px #006eff25;
+}
+
+/* MAIN PAGE */
+
+.page {
+  margin-left: 245px;
+  min-width: 0;
+}
+
+header {
+  margin: 0;
+  padding: 24px 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: rgba(7, 15, 28, .88);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 8px 30px #0003;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  backdrop-filter: blur(14px);
+}
+
+header h1 {
+  margin: 0;
+  color: #f4f8ff;
+  font-size: 23px;
+  letter-spacing: .3px;
+}
+
+header p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+main {
+  width: min(1500px, 100%);
+  margin: 0 auto;
+  padding: 32px 38px 60px;
+  background: transparent;
+}
+
+/* HEADINGS */
+
+h2 {
+  color: #eaf4ff;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 28px 0 18px;
+}
+
+h3 {
+  color: #fff;
+}
+
+label {
+  display: block;
+  margin-top: 17px;
+  font-weight: 600;
+  color: #d8e8fa;
+  font-size: 13px;
+}
+
+/* INPUTS */
+
+input,
+textarea,
+button {
+  width: 100%;
+  padding: 13px 15px;
+  margin-top: 9px;
+  font: inherit;
+  border-radius: 10px;
+}
+
+input,
+textarea {
+  color: var(--text);
+  background: #081426;
+  border: 1px solid #29415f;
+  outline: none;
+  transition: .2s;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #647c9a;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px #1685ff25;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* BUTTONS */
+
+button {
+  margin-top: 16px;
+  border: 1px solid #238cff;
+  color: white;
+  font-weight: 700;
+  background: linear-gradient(110deg, #0874e8, #0b9bd0);
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:hover {
+  filter: brightness(1.13);
+  transform: translateY(-1px);
+  box-shadow: 0 7px 20px #0874e833;
+}
+
+button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* AUTH AND USER PANELS */
+
+#userSection,
+#authSection,
+#repairForm {
+  padding: 25px;
+  margin: 20px 0;
+  background: linear-gradient(145deg, #11243b, #0c192b);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 35px #0003;
+}
+
+#authSection {
+  border-top: 3px solid var(--blue);
+}
+
+#userSection {
+  border-left: 3px solid var(--cyan);
+}
+
+#repairForm {
+  border-top: 3px solid var(--cyan);
+}
+
+#userInfo {
+  color: #c9e5ff;
+  font-weight: 600;
+}
+
+#message,
+#authMessage {
+  margin-top: 14px;
+  overflow-wrap: anywhere;
+  color: #70c9ff;
+  font-size: 13px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 30px 0;
+}
+
+/* DASHBOARD */
+
+#dashboard {
+  padding: 24px;
+  margin: 25px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, #101f34, #0b1728);
+  box-shadow: 0 12px 35px #0002;
+}
+
+#dashboard h2 {
+  margin-top: 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0 5px;
+}
+
+.stat-card {
+  min-height: 125px;
+  padding: 20px;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #123c68, #075b91);
+  border: 1px solid #2c8fd455;
+  box-shadow: 0 10px 25px #0002;
+  transition: .2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px #0004;
+}
+
+.stat-card:nth-child(2) {
+  background: linear-gradient(135deg, #18385c, #174b79);
+}
+
+.stat-card:nth-child(3) {
+  background: linear-gradient(135deg, #123e56, #08758b);
+}
+
+.stat-card:nth-child(4) {
+  background: linear-gradient(135deg, #123d55, #126b79);
+}
+
+.stat-card p {
+  color: #c2d8ef;
+  margin: 0;
+  font-size: 13px;
+}
+
+.stat-card h3 {
+  color: white;
+  font-size: 34px;
+  margin: 14px 0 0;
+}
+
+/* REPAIR LIST */
+
+#searchRepair {
+  max-width: 600px;
+}
+
+#loadButton {
+  max-width: 210px;
+}
+
+#repairList {
+  margin-top: 20px;
+}
+
+.repair {
+  padding: 22px;
+  margin-top: 16px;
+  background: linear-gradient(145deg, #132943, #0e1d31);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--blue);
+  border-radius: 14px;
+  overflow-wrap: anywhere;
+  box-shadow: 0 10px 28px #0002;
+  transition: .2s;
+}
+
+.repair:hover {
+  border-color: #258bdb77;
+  box-shadow: 0 12px 30px #0004;
+}
+
+.repair h3 {
+  margin: 0 0 15px;
+  font-size: 17px;
+  color: #72c7ff;
+}
+
+.repair p {
+  color: #c3d5e9;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 9px 0;
+}
+
+.status {
+  display: inline-block;
+  font-weight: 700;
+  color: #65c7ff;
+  background: #1685ff18;
+  border: 1px solid #1685ff35;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* REPAIR ACTION BUTTONS */
+
+.repair button {
+  max-width: 280px;
+  margin-right: 8px;
+  vertical-align: top;
+}
+
+.repair input,
+.repair textarea {
+  max-width: 600px;
+}
+
+.repair textarea {
+  min-height: 75px;
+}
+
+/* ACCESSIBILITY */
+
+[hidden] {
+  display: none !important;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+/* TABLET */
+
+@media (max-width: 1100px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .page {
+    margin-left: 200px;
+  }
+
+  main {
+    padding: 25px 22px 45px;
+  }
+
+  header {
+    padding: 20px 24px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow-x: auto;
+    background: #0b1b30;
+  }
+
+  .brand {
+    min-width: 125px;
+    font-size: 14px;
+    margin: 0 5px;
+  }
+
+  .brand span,
+  .nav-label {
+    display: none;
+  }
+
+  .sidebar a {
+    white-space: nowrap;
+    padding: 10px;
+    font-size: 11px;
+    margin: 0;
+  }
+
+  .page {
+    margin-left: 0;
+  }
+
+  header {
+    position: static;
+    display: block;
+    padding: 20px 16px;
+  }
+
+  header h1 {
+    font-size: 19px;
+  }
+
+  header p {
+    margin-top: 7px;
+  }
+
+  main {
+    padding: 16px 14px 35px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  #authSection,
+  #userSection,
+  #repairForm,
+  #dashboard {
+    padding: 17px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .stat-card {
+    min-height: 100px;
+    padding: 14px;
+  }
+
+  .stat-card h3 {
+    font-size: 27px;
+  }
+
+  .repair {
+    padding: 16px;
+  }
+
+  .repair button {
+    max-width: 100%;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">REPAIR HUB<span>MANAGEMENT SYSTEM</span></div>
+    <div class="nav-label">MAIN MENU</div>
+    <a class="active" href="#dashboard">▦ Dashboard</a>
+    <a href="#repairForm">＋ แจ้งซ่อม</a>
+    <a href="#repairList">▤ รายการซ่อม</a>
+    <a href="#userSection">♙ บัญชีผู้ใช้</a>
+  </aside>
+  <div class="page">
+  <header>
+    <h1>Computer Repair System</h1>
+    <p>ระบบแจ้งซ่อมและติดตามงานซ่อมคอมพิวเตอร์</p>
+  </header>
+
+  <main>
+    
+<section id="authSection">
+  <h2>เข้าสู่ระบบ</h2>
+
+  <form id="loginForm">
+    <label for="loginEmail">อีเมล</label>
+    <input
+      id="loginEmail"
+      type="email"
+      autocomplete="email"
+      required
+    >
+
+    <label for="loginPassword">รหัสผ่าน</label>
+    <input
+      id="loginPassword"
+      type="password"
+      autocomplete="current-password"
+      required
+    >
+
+    <button type="submit">เข้าสู่ระบบ</button>
+  </form>
+
+  <p id="authMessage" role="status"></p>
+
+  <hr>
+
+  <h2>สมัครสมาชิก</h2>
+
+  <form id="registerForm">
+    <label for="registerName">ชื่อ-นามสกุล</label>
+    <input
+      id="registerName"
+      autocomplete="name"
+      required
+      maxlength="100"
+    >
+
+    <label for="registerEmail">อีเมล</label>
+    <input
+      id="registerEmail"
+      type="email"
+      autocomplete="email"
+      required
+    >
+
+    <label for="registerPassword">รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)</label>
+    <input
+      id="registerPassword"
+      type="password"
+      minlength="8"
+      autocomplete="new-password"
+      required
+    >
+
+    <button type="submit">สมัครสมาชิก</button>
+  </form>
+</section>
+
+<section id="userSection" hidden>
+  <p id="userInfo"></p>
+  <button id="logoutButton" type="button">ออกจากระบบ</button>
+</section>
+
+    <h2>แจ้งซ่อมคอมพิวเตอร์</h2>
+
+    <form id="repairForm">
+      <label for="customerName">ชื่อผู้แจ้ง</label>
+      <input id="customerName" required maxlength="100">
+
+      <label for="device">อุปกรณ์</label>
+      <input id="device" placeholder="เช่น Laptop, PC" required maxlength="100">
+
+      <label for="problem">อาการเสีย</label>
+      <textarea id="problem" required></textarea>
+
+      <button id="submitButton" type="submit">ส่งรายการแจ้งซ่อม</button>
+    </form>
+
+    <p id="message" role="status"></p>
+
+    <hr>
+
+<section id="dashboard">
+  <h2>Dashboard สรุปงานซ่อม</h2>
+
+  <div class="stats">
+    <div class="stat-card">
+      <p>งานทั้งหมด</p>
+      <h3 id="totalCount">0</h3>
+    </div>
+
+    <div class="stat-card">
+      <p>รอดำเนินการ</p>
+      <h3 id="pendingCount">0</h3>
+    </div>
+
+    <div class="stat-card">
+      <p>กำลังซ่อม</p>
+      <h3 id="progressCount">0</h3>
+    </div>
+
+    <div class="stat-card">
+      <p>ซ่อมเสร็จแล้ว</p>
+      <h3 id="completedCount">0</h3>
+    </div>
+  </div>
+</section>
+
+    
+<h2>รายการแจ้งซ่อม</h2>
+
+<label for="searchRepair">ค้นหารายการแจ้งซ่อม</label>
+<input
+  type="text"
+  id="searchRepair"
+  placeholder="ค้นหาชื่อผู้แจ้ง อุปกรณ์ หรือสถานะ..."
+/>
+
+<button id="loadButton" type="button">โหลดรายการซ่อม</button>
+<div id="repairList"></div>
+
+  </main>
+  </div>
+
+  <script>
+    
+
+const authMessage = document.getElementById("authMessage");
+const authSection = document.getElementById("authSection");
+const userSection = document.getElementById("userSection");
+const repairForm = document.getElementById("repairForm");
+
+const API_URL = "/api/repairs";
+const message = document.getElementById("message");
+const repairList = document.getElementById("repairList");
+const submitButton = document.getElementById("submitButton");
+
+const searchRepair = document.getElementById("searchRepair");
+
+function getToken() {
+  return sessionStorage.getItem("token");
+}
+
+function getCurrentUser() {
+  const userText = sessionStorage.getItem("user");
+  return userText ? JSON.parse(userText) : null;
+}
+
+function updateAuthUI() {
+  const token = getToken();
+  const user = getCurrentUser();
+
+  authSection.hidden = Boolean(token);
+  userSection.hidden = !token;
+
+  if (token && user) {
+    document.getElementById("userInfo").textContent =
+      `เข้าสู่ระบบแล้ว: ${user.fullName} (${user.role})`;
+
+    repairForm.hidden = !["customer", "technician", "admin"].includes(user.role);
+  } else {
+    repairForm.hidden = false;
+  }
+}
+
+function updateDashboard(repairs) {
+  document.getElementById("totalCount").textContent = repairs.length;
+  document.getElementById("pendingCount").textContent =
+    repairs.filter(item => item.status === "pending").length;
+  document.getElementById("progressCount").textContent =
+    repairs.filter(item => item.status === "in_progress").length;
+  document.getElementById("completedCount").textContent =
+    repairs.filter(item => item.status === "completed").length;
+}
+
+document.getElementById("loginForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  authMessage.textContent = "กำลังเข้าสู่ระบบ...";
+
+  try {
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: document.getElementById("loginEmail").value.trim(),
+        password: document.getElementById("loginPassword").value
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error || "เข้าสู่ระบบไม่สำเร็จ");
+
+    sessionStorage.setItem("token", data.token);
+    sessionStorage.setItem("user", JSON.stringify(data.user));
+
+    authMessage.textContent = "เข้าสู่ระบบสำเร็จ";
+    updateAuthUI();
+    await loadRepairs();
+  } catch (error) {
+    authMessage.textContent = error.message;
+  }
+});
+
+document.getElementById("registerForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  authMessage.textContent = "กำลังสมัครสมาชิก...";
+
+  try {
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fullName: document.getElementById("registerName").value.trim(),
+        email: document.getElementById("registerEmail").value.trim(),
+        password: document.getElementById("registerPassword").value
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error || "สมัครสมาชิกไม่สำเร็จ");
+
+    authMessage.textContent = "สมัครสมาชิกสำเร็จ กรุณาเข้าสู่ระบบ";
+    document.getElementById("registerForm").reset();
+  } catch (error) {
+    authMessage.textContent = error.message;
+  }
+});
+
+document.getElementById("logoutButton").addEventListener("click", () => {
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("user");
+  authMessage.textContent = "ออกจากระบบแล้ว";
+  updateAuthUI();
+  repairList.replaceChildren();
+});
+
+async function updateApproval(repairId, approvalStatus) {
+  const token = getToken();
+
+  if (!token) {
+    alert("กรุณาเข้าสู่ระบบก่อน");
+    return;
+  }
+
+  const confirmMessage = approvalStatus === "approved"
+    ? "ยืนยันการอนุมัติราคาซ่อมหรือไม่?"
+    : "ยืนยันการปฏิเสธราคาซ่อมหรือไม่?";
+
+  if (!confirm(confirmMessage)) return;
+
+  try {
+    const response = await fetch(`${API_URL}/${repairId}/approval`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ approvalStatus })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "ไม่สามารถบันทึกการอนุมัติได้");
+    }
+
+    alert("บันทึกการอนุมัติเรียบร้อยแล้ว");
+    await loadRepairs();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+async function simulatePayment(repairId) {
+  const token = getToken();
+
+  if (!token) {
+    alert("กรุณาเข้าสู่ระบบก่อน");
+    return;
+  }
+
+  if (!confirm("ยืนยันการชำระเงินจำลองหรือไม่?")) return;
+
+  try {
+    const response = await fetch(`${API_URL}/${repairId}/payment`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ paymentMethod: "promptpay" })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "ชำระเงินไม่สำเร็จ");
+    }
+
+    alert("ชำระเงินจำลองสำเร็จ");
+    await loadRepairs();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+function calculateRepairPrice(device, problem) {
+  const deviceType = String(device).toLowerCase();
+  const problemType = String(problem).toLowerCase();
+
+  let deviceKey = "";
+
+  if (deviceType.includes("pc") || deviceType.includes("คอมตั้งโต๊ะ")) {
+    deviceKey = "pc";
+  } else if (
+    deviceType.includes("laptop") ||
+    deviceType.includes("โน้ตบุ๊ก")
+  ) {
+    deviceKey = "laptop";
+  } else {
+    return null;
+  }
+
+  let problemKey = "";
+
+  if (problemType.includes("เปิดไม่ติด")) {
+    problemKey = "power";
+  } else if (problemType.includes("ช้า")) {
+    problemKey = "slow";
+  } else if (
+    problemType.includes("จอ") ||
+    problemType.includes("ภาพ")
+  ) {
+    problemKey = "display";
+  } else {
+    return null;
+  }
+
+  const item = repairPriceList[deviceKey][problemKey];
+
+  return {
+    check: item.check,
+    labor: item.labor,
+    parts: item.parts,
+    total: item.check + item.labor + item.parts,
+    note: item.note
+  };
+}
+
+async function saveEstimate(repairId, estimatedPrice, estimateNote) {
+  const token = getToken();
+  const price = Number(estimatedPrice);
+
+  if (estimatedPrice === "" || !Number.isFinite(price) || price < 0) {
+    alert("กรุณากรอกราคาประเมินให้ถูกต้อง");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/${repairId}/estimate`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        estimatedPrice: price,
+        estimateNote: estimateNote
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      alert(result.message || "บันทึกราคาไม่สำเร็จ");
+      return;
+    }
+
+    alert("บันทึกราคาประเมินเรียบร้อยแล้ว");
+    await loadRepairs();
+  } catch (error) {
+    console.error(error);
+    alert("ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
+  }
+}
+
+async function changeRepairStatus(repairId, newStatus) {
+  const token = getToken();
+
+  try {
+    const response = await fetch(`${API_URL}/${repairId}/status`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ status: newStatus })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "เปลี่ยนสถานะไม่สำเร็จ");
+    }
+
+    message.textContent = "เปลี่ยนสถานะสำเร็จ";
+    await loadRepairs();
+  } catch (error) {
+    message.textContent = error.message;
+  }
+}
+
+async function loadRepairs() {
+  repairList.replaceChildren();
+
+  const token = getToken();
+
+  if (!token) {
+    message.textContent = "กรุณาเข้าสู่ระบบก่อนโหลดรายการซ่อม";
+    return;
+  }
+
+  try {
+    const response = await fetch(API_URL, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "โหลดรายการไม่สำเร็จ");
+    }
+
+    updateDashboard(data);
+
+    if (data.length === 0) {
+      repairList.textContent = "ยังไม่มีรายการแจ้งซ่อม";
+      return;
+    }
+
+    const currentUser = JSON.parse(sessionStorage.getItem("user") || "null");
+    console.log("USER:", currentUser);
+    console.log("ROLE:", currentUser?.role);
+
+    data.forEach((repair) => {
+      const card = document.createElement("section");
+      card.className = "repair";
+      card.dataset.status = repair.status;
+
+      const title = document.createElement("h3");
+      title.textContent = `รายการที่ ${repair.id}`;
+
+      const details = document.createElement("p");
+      details.textContent =
+        `ผู้แจ้ง: ${repair.customerName} | อุปกรณ์: ${repair.device}`;
+
+      const problem = document.createElement("p");
+      problem.textContent = `ปัญหา: ${repair.problem}`;
+
+      const statusNames = {
+        pending: "รอดำเนินการ",
+        in_progress: "กำลังซ่อม",
+        completed: "ซ่อมเสร็จแล้ว"
+      };
+
+      const status = document.createElement("p");
+      status.className = "status";
+      status.textContent =
+        `สถานะ: ${statusNames[repair.status] || repair.status}`;
+
+      const estimate = document.createElement("p");
+      estimate.textContent =
+        repair.estimatedPrice !== null && repair.estimatedPrice !== undefined
+          ? `ราคาประเมิน: ${Number(repair.estimatedPrice).toLocaleString("th-TH")} บาท`
+          : "ราคาประเมิน: รอช่างประเมิน";
+
+      const estimateNote = document.createElement("p");
+      estimateNote.textContent =
+        `รายละเอียดการประเมิน: ${repair.estimateNote || "ยังไม่มีรายละเอียด"}`;
+
+      const approvalNames = {
+        waiting: "รออนุมัติ",
+        approved: "อนุมัติแล้ว",
+        rejected: "ไม่อนุมัติ"
+      };
+
+      const approval = document.createElement("p");
+      approval.textContent =
+        `การอนุมัติ: ${approvalNames[repair.approvalStatus] || repair.approvalStatus || "รออนุมัติ"}`;
+
+      const paymentNames = {
+        unpaid: "ยังไม่ชำระเงิน",
+        paid: "ชำระเงินแล้ว"
+      };
+
+      const payment = document.createElement("p");
+      payment.textContent =
+        `การชำระเงิน: ${paymentNames[repair.paymentStatus] || repair.paymentStatus || "ยังไม่ชำระเงิน"}`;
+
+      card.append(
+        title,
+        details,
+        problem,
+        status,
+        estimate,
+        estimateNote,
+        approval,
+        payment
+      );
+
+      if (
+        currentUser?.role === "customer" &&
+        repair.estimatedPrice !== null &&
+        repair.estimatedPrice !== undefined &&
+        repair.approvalStatus === "waiting"
+      ) {
+        const approveButton = document.createElement("button");
+        approveButton.textContent = "อนุมัติราคา";
+        approveButton.onclick = () => updateApproval(repair.id, "approved");
+
+        const rejectButton = document.createElement("button");
+        rejectButton.textContent = "ปฏิเสธราคา";
+        rejectButton.onclick = () => updateApproval(repair.id, "rejected");
+
+        card.append(approveButton, rejectButton);
+      }
+
+      if (
+        currentUser?.role === "customer" &&
+        repair.approvalStatus === "approved" &&
+        repair.paymentStatus !== "paid" &&
+        repair.estimatedPrice !== null &&
+        repair.estimatedPrice !== undefined
+      ) {
+        const paymentButton = document.createElement("button");
+        paymentButton.textContent = "ชำระเงินจำลอง";
+        paymentButton.onclick = () => simulatePayment(repair.id);
+        card.append(paymentButton);
+      }
+
+      if (["technician", "admin"].includes(currentUser?.role)) {
+        const statusButton = document.createElement("button");
+        statusButton.textContent = "เปลี่ยนเป็นกำลังซ่อม";
+        statusButton.onclick = () =>
+          changeRepairStatus(repair.id, "in_progress");
+
+        const completeButton = document.createElement("button");
+        completeButton.textContent = "เปลี่ยนเป็นซ่อมเสร็จแล้ว";
+        completeButton.onclick = () =>
+          changeRepairStatus(repair.id, "completed");
+
+        card.append(statusButton, completeButton);
+      }
+
+      
+      if (["technician", "admin"].includes(currentUser?.role)) {
+        const priceInput = document.createElement("input");
+        priceInput.type = "number";
+        priceInput.min = "0";
+        priceInput.step = "0.01";
+        priceInput.placeholder = "กรอกราคาประเมิน (บาท)";
+
+        const noteInput = document.createElement("textarea");
+        noteInput.placeholder = "รายละเอียดการประเมินราคา";
+
+        const estimateButton = document.createElement("button");
+        estimateButton.textContent = "บันทึกราคาประเมิน";
+        estimateButton.onclick = () =>
+          saveEstimate(repair.id, priceInput.value, noteInput.value);
+
+        card.append(priceInput, noteInput, estimateButton);
+      }
+
+      repairList.appendChild(card);
+    });
+  } catch (error) {
+    message.textContent = error.message;
+  }
+}
+
+repairForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const token = getToken();
+
+  if (!token) {
+    message.textContent = "กรุณา Login ก่อน";
+    return;
+  }
+
+  submitButton.disabled = true;
+  message.textContent = "กำลังส่งรายการ...";
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        customerName: document.getElementById("customerName").value.trim(),
+        device: document.getElementById("device").value.trim(),
+        problem: document.getElementById("problem").value.trim()
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "ส่งรายการไม่สำเร็จ");
+    }
+
+    message.textContent = `แจ้งซ่อมสำเร็จ! หมายเลขรายการ ${data.id}`;
+    repairForm.reset();
+    await loadRepairs();
+  } catch (error) {
+    message.textContent = error.message;
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+document.getElementById("loadButton")
+  .addEventListener("click", loadRepairs);
+
+const statusKeywords = {
+  "รอดำเนินการ": "pending",
+  "กำลังซ่อม": "in_progress",
+  "ซ่อมเสร็จแล้ว": "completed"
+};
+
+searchRepair.addEventListener("input", () => {
+  const keyword = searchRepair.value.trim().toLowerCase();
+  const searchStatus = statusKeywords[keyword] || keyword;
+
+  document.querySelectorAll("#repairList .repair").forEach((card) => {
+    const status = (card.dataset.status || "").toLowerCase();
+    const text = card.textContent.toLowerCase();
+
+    const matchesText = text.includes(keyword);
+    const matchesStatus = status === searchStatus;
+
+    card.hidden = keyword !== "" && !(matchesText || matchesStatus);
+  });
+});
+
+updateAuthUI();
+
+if (getToken()) {
+  loadRepairs();
+}
+
+  </script>
+</body>
+</html>

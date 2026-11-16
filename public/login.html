@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เข้าสู่ระบบ | REPAIR HUB</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+  <main class="auth-container">
+    <section class="auth-card">
+      <h1>REPAIR HUB</h1>
+      <p>ระบบจองและติดตามงานซ่อมคอมพิวเตอร์</p>
+
+      <h2>เข้าสู่ระบบ</h2>
+
+      <form id="loginForm">
+        <label for="email">อีเมล</label>
+        <input type="email" id="email" required placeholder="กรอกอีเมล">
+
+        <label for="password">รหัสผ่าน</label>
+        <input type="password" id="password" required placeholder="กรอกรหัสผ่าน">
+
+        <button type="submit">เข้าสู่ระบบ</button>
+        <p id="authMessage"></p>
+      </form>
+
+      <p>ยังไม่มีบัญชี? <a href="register.html">สมัครสมาชิก</a></p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

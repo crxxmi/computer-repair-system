@@ -1,0 +1,569 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #070d18;
+  --panel: #0e1b2e;
+  --panel2: #13243b;
+  --blue: #1677ff;
+  --cyan: #32c5ff;
+  --text: #edf5ff;
+  --muted: #91a7c2;
+  --border: #263b58;
+}
+
+body.auth-page {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #102b50, var(--bg) 60%);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 36px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px #0008;
+}
+
+.auth-card h1 {
+  margin: 0;
+  color: var(--cyan);
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.auth-card h2 {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.auth-card > p {
+  color: var(--muted);
+  text-align: center;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-card label {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 13px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  outline: none;
+}
+
+.auth-card input:focus {
+  border-color: var(--cyan);
+}
+
+.auth-card button {
+  margin-top: 16px;
+  padding: 13px;
+  color: white;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  border: 0;
+  border-radius: 9px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-card button:hover {
+  filter: brightness(1.12);
+}
+
+.auth-card a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+.auth-card a:hover {
+  text-decoration: underline;
+}
+
+#authMessage {
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* REPAIR LIST */
+#repairList .repair {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  margin-bottom: 18px;
+  background: #0e1b2e;
+  border: 1px solid #1e3552;
+  border-radius: 14px;
+  color: #e5eefc;
+}
+
+#repairList .repair h3 {
+  width: 100%;
+  margin: 0 0 8px;
+  color: #38bdf8;
+  font-size: 20px;
+}
+
+#repairList .repair p {
+  width: 100%;
+  margin: 3px 0;
+  line-height: 1.7;
+}
+
+#repairList .repair button {
+  padding: 11px 16px;
+  border: 1px solid #0284c7;
+  border-radius: 8px;
+  background: #075985;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#repairList .repair button:hover {
+  background: #0284c7;
+  transform: translateY(-1px);
+}
+
+#repairList .repair input,
+#repairList .repair textarea {
+  padding: 12px;
+  border: 1px solid #29435f;
+  border-radius: 8px;
+  background: #070d18;
+  color: #e5eefc;
+  font-size: 14px;
+  outline: none;
+}
+
+#repairList .repair input:focus,
+#repairList .repair textarea:focus {
+  border-color: #38bdf8;
+}
+
+#repairList .repair input {
+  width: 210px;
+}
+
+#repairList .repair textarea {
+  width: 260px;
+  min-height: 44px;
+  resize: vertical;
+}
+
+#repairList .repair button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  #repairList .repair input,
+  #repairList .repair textarea {
+    width: 100%;
+  }
+
+  #repairList .repair button {
+    width: 100%;
+  }
+}
+
+/* =================================
+   REPAIR HUB - PREMIUM REPAIR CARDS
+================================= */
+
+#repairList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+#repairList .repair {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 22px;
+  padding: 28px;
+  margin: 0;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top right, #123b65 0%, transparent 38%),
+    linear-gradient(145deg, #11243d, #0b1729 75%);
+
+  border: 1px solid #24466c;
+  border-radius: 20px;
+  color: #edf5ff;
+
+  box-shadow:
+    0 12px 35px #0005,
+    inset 0 1px 0 #ffffff0a;
+
+  transition: transform 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+#repairList .repair:hover {
+  transform: translateY(-5px);
+  border-color: #168cff;
+  box-shadow:
+    0 18px 45px #0008,
+    0 0 22px #1677ff20;
+}
+
+/* CARD HEADER */
+
+.repair-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #29435f;
+}
+
+#repairList .repair .repair-title {
+  width: auto;
+  margin: 0;
+  color: #43c8ff;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* STATUS BADGE */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: bold;
+  border: 1px solid transparent;
+}
+
+.status-badge.pending {
+  color: #fbbf24;
+  background: #f59e0b18;
+  border-color: #f59e0b55;
+}
+
+.status-badge.in-progress {
+  color: #38bdf8;
+  background: #0ea5e918;
+  border-color: #0ea5e955;
+}
+
+.status-badge.completed {
+  color: #4ade80;
+  background: #22c55e18;
+  border-color: #22c55e55;
+}
+
+/* INFORMATION GRID */
+
+.repair-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.repair-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 17px;
+  min-width: 0;
+
+  background: #071426aa;
+  border: 1px solid #203c5b;
+  border-radius: 13px;
+
+  transition: 0.25s ease;
+}
+
+.repair-info-item:hover {
+  background: #102b49;
+  border-color: #168cff88;
+}
+
+.repair-info-item:last-child {
+  grid-column: 1 / -1;
+}
+
+.info-label {
+  color: #91a7c2;
+  font-size: 13px;
+}
+
+.info-value {
+  color: #edf5ff;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* ESTIMATE BOX */
+
+.repair-estimate-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+
+  background: linear-gradient(120deg, #102d4d, #10213a);
+  border: 1px solid #1768a5;
+  border-radius: 14px;
+}
+
+.estimate-price {
+  color: #42c8ff;
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.estimate-note {
+  margin: 0;
+  color: #c4d6eb;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+/* APPROVAL AND PAYMENT */
+
+.repair-payment-info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.payment-item {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 16px;
+
+  background: #09182a;
+  border: 1px solid #203c5b;
+  border-radius: 12px;
+}
+
+/* ACTION BUTTONS */
+
+.repair-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  padding-top: 5px;
+}
+
+#repairList .repair .action-button {
+  padding: 12px 18px;
+  border: 1px solid #168cff;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1268c5, #078bbd);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+#repairList .repair .action-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.2);
+  box-shadow: 0 5px 18px #168cff40;
+}
+
+#repairList .repair .action-button.danger {
+  background: linear-gradient(135deg, #991b3b, #dc3545);
+  border-color: #e34b5b;
+}
+
+#repairList .repair .action-button.success {
+  background: linear-gradient(135deg, #087b52, #16a36a);
+  border-color: #22c58a;
+}
+
+/* ESTIMATE EDITOR */
+
+.estimate-editor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px;
+
+  background: #081629;
+  border: 1px solid #294766;
+  border-radius: 14px;
+}
+
+.estimate-editor h4 {
+  width: 100%;
+  margin: 0;
+  color: #43c8ff;
+  font-size: 16px;
+}
+
+#repairList .repair .estimate-input,
+#repairList .repair .estimate-textarea {
+  width: 100%;
+  padding: 13px 15px;
+  background: #0d1d32;
+  border: 1px solid #2a4565;
+  border-radius: 9px;
+  color: #edf5ff;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+#repairList .repair .estimate-input:focus,
+#repairList .repair .estimate-textarea:focus {
+  border-color: #32c5ff;
+  box-shadow: 0 0 0 3px #32c5ff18;
+}
+
+#repairList .repair .estimate-textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+#repairList .repair .estimate-editor .action-button {
+  width: 100%;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+  #repairList .repair {
+    padding: 19px;
+  }
+
+  .repair-info-grid,
+  .repair-payment-info {
+    grid-template-columns: 1fr;
+  }
+
+  .repair-info-item:last-child {
+    grid-column: auto;
+  }
+
+  .repair-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .repair-actions {
+    flex-direction: column;
+  }
+
+  #repairList .repair .action-button {
+    width: 100%;
+  }
+
+  .estimate-price {
+    font-size: 24px;
+  }
+}
+
+/* รายการแจ้งซ่อมแบบกดเปิดรายละเอียด */
+
+#repairList .repair {
+  display: block;
+  padding: 0;
+  margin-bottom: 12px;
+  background: #0e1b2e;
+  border: 1px solid #1e3552;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#repairList .repair > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px;
+  cursor: pointer;
+  list-style: none;
+  transition: background 0.2s;
+}
+
+#repairList .repair > summary::-webkit-details-marker {
+  display: none;
+}
+
+#repairList .repair > summary:hover {
+  background: #142943;
+}
+
+#repairList .repair-header::after {
+  content: "＋";
+  color: #60a5fa;
+  font-size: 22px;
+  margin-left: auto;
+}
+
+#repairList .repair[open] > summary::after {
+  content: "−";
+}
+
+#repairList .repair-title {
+  width: auto;
+  margin: 0;
+  font-size: 16px;
+  color: #e5eefc;
+}
+
+#repairList .repair-content {
+  padding: 22px;
+  border-top: 1px solid #1e3552;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+#repairList .repair-info-grid {
+  margin-top: 0;
+}
+
+#repairList .repair-estimate-box,
+#repairList .repair-payment-info,
+#repairList .repair-actions,
+#repairList .estimate-editor {
+  width: 100%;
+}

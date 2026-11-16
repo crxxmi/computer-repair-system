@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>รายการแจ้งซ่อม | REPAIR HUB</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #070d18;
+      color: #e5eefc;
+      font-family: Arial, sans-serif;
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: #0e1b2e;
+      padding: 28px 20px;
+      border-right: 1px solid #1e3552;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      color: #38bdf8;
+      font-size: 23px;
+      font-weight: bold;
+      margin-bottom: 35px;
+    }
+
+    .sidebar a,
+    .sidebar button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 10px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #cbd5e1;
+      text-align: left;
+      text-decoration: none;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active,
+    .sidebar button:hover {
+      background: #16365a;
+      color: #38bdf8;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      padding: 35px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 27px;
+    }
+
+    #userInfo {
+      color: #38bdf8;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .toolbar input {
+      flex: 1;
+      min-width: 200px;
+      padding: 13px;
+      border: 1px solid #29435f;
+      border-radius: 8px;
+      background: #0e1b2e;
+      color: white;
+      outline: none;
+    }
+
+    .toolbar a {
+      padding: 13px 18px;
+      border-radius: 8px;
+      background: #0284c7;
+      color: white;
+      text-decoration: none;
+    }
+
+    #repairList {
+      display: grid;
+      gap: 16px;
+    }
+
+    .repair-card {
+      background: #0e1b2e;
+      border: 1px solid #1e3552;
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .repair-card h3 {
+      color: #38bdf8;
+    }
+
+    #message {
+      color: #fca5a5;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="brand">REPAIR HUB</div>
+
+      <a href="dashboard.html">Dashboard</a>
+      <a href="request.html">แจ้งซ่อม</a>
+      <a href="repairs.html" class="active">รายการแจ้งซ่อม</a>
+
+      <button id="logoutButton">ออกจากระบบ</button>
+    </aside>
+
+    <main class="content">
+
+      <header class="topbar">
+        <h1>รายการแจ้งซ่อม</h1>
+        <div id="userSection">
+          <span id="userInfo"></span>
+        </div>
+      </header>
+
+      <div class="toolbar">
+        <input
+          type="text"
+          id="searchRepair"
+          placeholder="ค้นหาชื่อ อุปกรณ์ หรือปัญหา..."
+        >
+
+        <a href="request.html">+ แจ้งซ่อมใหม่</a>
+      </div>
+
+      <div id="message"></div>
+
+      <section id="repairList">
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
